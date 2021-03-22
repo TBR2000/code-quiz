@@ -110,7 +110,9 @@ var questionEleven = [{
     answer: [":empty"]
 }]
 
-//Function start goes here
+//Game Function start goes here
+
+//Repeat Function Start
 
 // All questions into one variable
 var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
@@ -177,7 +179,34 @@ choiceOne.setAttribute()
 choiceTwo.setAttribute()
 choiceThree.setAttribute()
 choiceFour.setAttribute()
+
 //Listens to answers
-//Compares response to answer
+choiceOne.addEventListener("click", function() {
+    if (choiceOne == questionToUse[0].answer) correct = true
+    else incorrect = true
+    }, true);
+choiceTwo.addEventListener("click", function() {
+    if (choiceTwo == questionToUse[0].answer) correct = true
+    else incorrect = true
+    }, true);
+choiceThree.addEventListener("click", function() {
+    if (choiceThree == questionToUse[0].answer) correct = true
+    else incorrect = true
+    }, true);
+choiceFour.addEventListener("click", function() {
+    if (choiceFour == questionToUse[0].answer) correct = true
+    else incorrect = true
+    }, true);
+
+//Answer processing
+var cor = correct
+var inCor = incorrect
+//if (cor = true)
+
+//Repeat Function End
+
 //Timer Function
+
+//Game Function ends here
+
 //Prints score to storage
