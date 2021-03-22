@@ -109,22 +109,75 @@ var questionEleven = [{
     ],
     answer: [":empty"]
 }]
+
+//Function start goes here
+
+// All questions into one variable
 var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
     questionSix,questionFive,questionFour,questionThree,questionTwo,questionOne];
   
-function quizGame(){
 // Random selects question    
 questionToUse = questionVar[Math.floor(Math.random() * questionVar.length)];
+
+//Randomise Choice array (Fisher-Yates Shuffle)
+choiceArray = questionToUse[0].choices
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    while (0 !== currentIndex) {  
+    
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;  
+      
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+    shuffle(choiceArray);
+    randomChoiceArray = choiceArray
 
 // Remove Selection from questionVar array
 const index = questionVar.indexOf(questionToUse);
 if (index > -1) { 
     questionVar.splice(index, 1) 
 };
-//Injects question to html
 
+//Injects question to html
+var question = document.createElement("ul");
+question.innerHTML = questionToUse[0].title;
+document.body.appendChild(question);
+
+//Injects Choice One into HTML
+var choiceOne = document.createElement("li");
+choiceOne.innerHTML = randomChoiceArray[0];
+question.appendChild(choiceOne);
+
+//Injects Choice Two into HTML
+var choiceTwo = document.createElement("li");
+choiceTwo.innerHTML = randomChoiceArray[1];
+question.appendChild(choiceTwo);
+
+//Injects Choice Three into HTML
+var choiceThree = document.createElement("li");
+choiceThree.innerHTML = randomChoiceArray[2];
+question.appendChild(choiceThree);
+
+//Injects Choice Four into HTML
+var choiceFour = document.createElement("li");
+choiceFour.innerHTML = randomChoiceArray[3];
+question.appendChild(choiceFour);
+
+//Styling of Quiz
+question.setAttribute()
+choiceOne.setAttribute()
+choiceTwo.setAttribute()
+choiceThree.setAttribute()
+choiceFour.setAttribute()
 //Listens to answers
 //Compares response to answer
 //Timer Function
 //Prints score to storage
-}
