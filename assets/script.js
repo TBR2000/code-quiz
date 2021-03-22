@@ -1,3 +1,4 @@
+// Questions with Choices and Answer
 var questionOne = [{
     title: "JavaScript is generally used as?",
     choices: [
@@ -108,3 +109,22 @@ var questionEleven = [{
     ],
     answer: [":empty"]
 }]
+var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
+    questionSix,questionFive,questionFour,questionThree,questionTwo,questionOne];
+  
+function quizGame(){
+// Random selects question    
+questionToUse = questionVar[Math.floor(Math.random() * questionVar.length)];
+
+// Remove Selection from questionVar array
+const index = questionVar.indexOf(questionToUse);
+if (index > -1) { 
+    questionVar.splice(index, 1) 
+};
+//Injects question to html
+
+//Listens to answers
+//Compares response to answer
+//Timer Function
+//Prints score to storage
+}
