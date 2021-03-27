@@ -110,21 +110,68 @@ var questionEleven = [{
     answer: [":empty"]
 }]
 
-//Game Function start goes here
+//Start Screen
+var viewHs = document.createElement ("a");
+var secondsLeft = 75;
+var secondsLeft = document.createElement("h3")
+var startScreen = document.createElement("article");
+var head = document.createElement("h1");
+var instruct = document.createElement("p");
+var startButton = document.createElement("button");
 
-//Repeat Function Start
+viewHs.innerHTML = "View Highscores";
+head.innerHTML = "Coding Quiz Challenge";
+instruct.innerHTML = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalise your time/score by 10 seconds.";
+startButton.innerHTML = "Start Quiz";
+secondsLeft.innerHTML = "Time: " + secondsLeft
+document.body.appendChild(viewHs);
+document.body.appendChild(secondsLeft)
+document.body.appendChild(startScreen);
+startScreen.appendChild(head);
+startScreen.appendChild(instruct);
+startScreen.appendChild(startButton);
+viewHs.setAttribute('href','./highscore.html;');
+viewHs.setAttribute('style', 'font-weight:bold; text-decoration:none; color:#008CBA; text-align:left; width:fit-content; margin:18.720px; font-size:20px; display:inline-block; text-align:left; width:fit-content; position: absolute; left:1%')
+startScreen.setAttribute('style', 'width:30%; display:flex; flex-wrap:wrap; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)');
+secondsLeft.setAttribute('style', 'display:inline-block; text-align:right; width:fit-content; position: absolute; right:1%')
+head.setAttribute('style','flex-basis:100%; text-align:center; margin-bottom:0px');
+instruct.setAttribute('style','text-align:center');
+startButton.setAttribute('style', 'margin: 0; position: absolute; top: 120%; left: 50%; transform: translate(-50%, -50%);background-color: #008CBA; color:white; border-radius: 8px;');
+startButton.addEventListener('click', function(){
+    gameTime();
+    game()
+    });
 
-// All questions into one variable
-var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
+    //Timer Function
+function gameTime() {
+    var timerInterval = setInterval(function() {
+    secondsLeft--;
+    secondsLeft.textContent = secondsLeft
+    
+    if(gameEnd == true) {
+    clearInterval(timerInterval);       
+    }
+    
+    }, 75000);
+}        
+
+function game(){
+
+    // Removes start screen
+    startScreen.setAttribute('style','display:none');
+    
+    // All questions into one variable
+    var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
     questionSix,questionFive,questionFour,questionThree,questionTwo,questionOne];
   
-// Random selects question    
-questionToUse = questionVar[Math.floor(Math.random() * questionVar.length)];
+    // Random selects question    
+    questionToUse = questionVar[Math.floor(Math.random() * questionVar.length)];
 
-//Randomise Choice array (Fisher-Yates Shuffle)
-choiceArray = questionToUse[0].choices
 
-function shuffle(array) {
+   //Randomise Choice array (Fisher-Yates Shuffle)
+    choiceArray = questionToUse[0].choices
+
+    function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
     while (0 !== currentIndex) {  
@@ -141,72 +188,101 @@ function shuffle(array) {
   }
     shuffle(choiceArray);
     randomChoiceArray = choiceArray
-
-// Remove Selection from questionVar array
-const index = questionVar.indexOf(questionToUse);
-if (index > -1) { 
+    
+    
+    // Remove Selection from questionVar array
+    const index = questionVar.indexOf(questionToUse);
+    if (index > -1) { 
     questionVar.splice(index, 1) 
+    };
+
+    //Injects question to html
+    var question = document.createElement("ul");
+    question.innerHTML = questionToUse[0].title;
+    document.body.appendChild(question);
+
+    //Injects Choice One into HTML
+    var choiceOne = document.createElement("li");
+    var btnOne = document.createElement('button')
+    btnOne.innerHTML = "A: " + randomChoiceArray[0];
+    question.appendChild(choiceOne);
+    choiceOne.appendChild(btnOne);
+
+
+    //Injects Choice Two into HTML
+    var choiceTwo = document.createElement('li');
+    var btnTwo = document.createElement('button');
+    btnTwo.innerHTML = "B: " + randomChoiceArray[1];
+    question.appendChild(choiceTwo);
+    choiceTwo.appendChild(btnTwo);
+
+    //Injects Choice Three into HTML
+    var choiceThree = document.createElement("li");
+    var btnThree = document.createElement('button');
+    btnThree.innerHTML = "C: " + randomChoiceArray[2];
+    question.appendChild(choiceThree);
+    choiceThree.appendChild(btnThree);
+
+    //Injects Choice Four into HTML
+    var choiceFour = document.createElement("li");
+    var btnFour = document.createElement('button');
+    btnFour.innerHTML ="D: " + randomChoiceArray[3];
+    question.appendChild(choiceFour);
+    choiceFour.appendChild(btnFour);
+
+    //Styling of Quiz
+    question.setAttribute('style','border-style: dotted; border-color:#008CBA; text-align: left; font-weight:1000; font-size:20px; width:fit-content; color:black; content-align:left; width:30%; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%');
+    choiceOne.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
+    choiceTwo.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
+    choiceThree.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
+    choiceFour.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
+    btnOne.setAttribute("id", "btnOne");
+    btnTwo.setAttribute( "id", "btnTwo");
+    btnThree.setAttribute( "id", "btnThree");
+    btnFour.setAttribute("id", "btnFour");
+    btnOne.setAttribute('style', 'background: #008CBA; color:white; border-radius: 8px;');
+    btnTwo.setAttribute('style', 'background: #008CBA; color:white; border-radius: 8px;');
+    btnThree.setAttribute('style', 'background: #008CBA; color:white; border-radius: 8px;');
+    btnFour.setAttribute('style', 'background-color: #008CBA; color:white; border-radius: 8px;');
+
+    //Listens and processes answers
+    var one = document.querySelector("#btnOne");
+    var two = document.querySelector("#btnTwo");
+    var three = document.querySelector("#btnThree");
+    var four = document.querySelector("#btnFour");
+    
+    one.addEventListener("click", function() {
+        if (randomChoiceArray[0] == questionToUse[0].answer[0]) {correct();}
+        else {secondsLeft -1000;}
+    });
+    two.addEventListener("click", function() {
+        if (randomChoiceArray[1] == questionToUse[0].answer[0]) {correct();}
+        else {secondsLeft -1000;}
+    });
+    three.addEventListener("click", function() {
+        if (randomChoiceArray[2] == questionToUse[0].answer[0]) {correct();}
+        else {secondsLeft -1000;}
+    });
+
+    four.addEventListener("click", function() {
+        if (randomChoiceArray[3] == questionToUse[0].answer[0]) {correct();}
+        else {secondsLeft -1000;}
+    });
+
 };
 
-//Injects question to html
-var question = document.createElement("ul");
-question.innerHTML = questionToUse[0].title;
-document.body.appendChild(question);
+//Repeats game 5 times 
+function correct(){
+    document.body.innerHTML = "";
+    var count = 5
+    count--;
+    if(count <= 5){game();}
+    else{endGame();}
+};
 
-//Injects Choice One into HTML
-var choiceOne = document.createElement("li");
-choiceOne.innerHTML = randomChoiceArray[0];
-question.appendChild(choiceOne);
+//Ends game and bring up Intials and high score
+function endGame(){
 
-//Injects Choice Two into HTML
-var choiceTwo = document.createElement("li");
-choiceTwo.innerHTML = randomChoiceArray[1];
-question.appendChild(choiceTwo);
-
-//Injects Choice Three into HTML
-var choiceThree = document.createElement("li");
-choiceThree.innerHTML = randomChoiceArray[2];
-question.appendChild(choiceThree);
-
-//Injects Choice Four into HTML
-var choiceFour = document.createElement("li");
-choiceFour.innerHTML = randomChoiceArray[3];
-question.appendChild(choiceFour);
-
-//Styling of Quiz
-question.setAttribute()
-choiceOne.setAttribute()
-choiceTwo.setAttribute()
-choiceThree.setAttribute()
-choiceFour.setAttribute()
-
-//Listens to answers
-choiceOne.addEventListener("click", function() {
-    if (choiceOne == questionToUse[0].answer) correct = true
-    else incorrect = true
-    }, true);
-choiceTwo.addEventListener("click", function() {
-    if (choiceTwo == questionToUse[0].answer) correct = true
-    else incorrect = true
-    }, true);
-choiceThree.addEventListener("click", function() {
-    if (choiceThree == questionToUse[0].answer) correct = true
-    else incorrect = true
-    }, true);
-choiceFour.addEventListener("click", function() {
-    if (choiceFour == questionToUse[0].answer) correct = true
-    else incorrect = true
-    }, true);
-
-//Answer processing
-var cor = correct
-var inCor = incorrect
-//if (cor = true)
-
-//Repeat Function End
-
-//Timer Function
-
-//Game Function ends here
+}
 
 //Prints score to storage
