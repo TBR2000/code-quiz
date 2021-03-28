@@ -1,21 +1,22 @@
-// The following function renders items in a todo list as <li> elements
+
+
 function renderScores() {
-    // Clear todoList element and update todoCountSpan
+      // Clears highscore element and update highscoreSpan
     highScoreList.innerHTML = "";
-    todoCountSpan.textContent = highScores.length;
+    highScoreSpan.innerHTML = highScores.length;
   
-    // Render a new li for each todo
+    // Render a new li each pass
     for (var i = 0; i < highScores.length; i++) {
       var todo = todos[i];
   
       var li = document.createElement("li");
-      li.textContent = highScores;
+      li.innerHTML = highScores;
       li.setAttribute("data-index", i);
   
       var button = document.createElement("button");
-      button.textContent = "Complete ✔️";
+      button.innerHTML = "Clear High Scores";
   
       li.appendChild(button);
-      todoList.appendChild(li);
+      highScoreList.appendChild(ul);
     }
   }

@@ -50,7 +50,7 @@ var questionFive = [{
     answer: ["img"]
 }]
 var questionSix = [{
-    title: "Which attribute of a page element (eg a div) should be set to allow CSS and JavaScript to deal with several elements in the same way?",
+    title: "Which attribute of a page element allows CSS and JavaScript to deal with several elements in the same way?",
     choices: [
         "id", 
         "name", 
@@ -112,61 +112,59 @@ var questionEleven = [{
 
 //Start Screen
 var viewHs = document.createElement ("a");
-var secondsLeft = 75;
+var timer = 5;
 var secondsLeft = document.createElement("h3")
 var startScreen = document.createElement("article");
 var head = document.createElement("h1");
 var instruct = document.createElement("p");
 var startButton = document.createElement("button");
-
 viewHs.innerHTML = "View Highscores";
 head.innerHTML = "Coding Quiz Challenge";
 instruct.innerHTML = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalise your time/score by 10 seconds.";
 startButton.innerHTML = "Start Quiz";
-secondsLeft.innerHTML = "Time: " + secondsLeft
+secondsLeft.innerHTML = "Time: " + timer
 document.body.appendChild(viewHs);
 document.body.appendChild(secondsLeft)
 document.body.appendChild(startScreen);
 startScreen.appendChild(head);
 startScreen.appendChild(instruct);
 startScreen.appendChild(startButton);
-viewHs.setAttribute('href','./highscore.html;');
+
+//Styling of Start Screen
+viewHs.setAttribute('href','highscore.html');
+viewHs.setAttribute('id','viewHs');
 viewHs.setAttribute('style', 'font-weight:bold; text-decoration:none; color:#008CBA; text-align:left; width:fit-content; margin:18.720px; font-size:20px; display:inline-block; text-align:left; width:fit-content; position: absolute; left:1%')
 startScreen.setAttribute('style', 'width:30%; display:flex; flex-wrap:wrap; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)');
+secondsLeft.setAttribute('id','secondsLeft')
 secondsLeft.setAttribute('style', 'display:inline-block; text-align:right; width:fit-content; position: absolute; right:1%')
 head.setAttribute('style','flex-basis:100%; text-align:center; margin-bottom:0px');
 instruct.setAttribute('style','text-align:center');
 startButton.setAttribute('style', 'margin: 0; position: absolute; top: 120%; left: 50%; transform: translate(-50%, -50%);background-color: #008CBA; color:white; border-radius: 8px;');
+
+//Starts the game
 startButton.addEventListener('click', function(){
     gameTime();
-    game()
-    });
+    game();
+});
 
-    //Timer Function
-function gameTime() {
-    var timerInterval = setInterval(function() {
-    secondsLeft--;
-    secondsLeft.textContent = secondsLeft
-    
-    if(gameEnd == true) {
-    clearInterval(timerInterval);       
-    }
-    
-    }, 75000);
-}        
+// All questions into one variable
+var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
+    questionSix,questionFive,questionFour,questionThree,questionTwo,questionOne];
 
+
+//Number of game Repeats
+var count = 5
+
+//Game Function
 function game(){
+    
+     count--;
 
     // Removes start screen
-    startScreen.setAttribute('style','display:none');
-    
-    // All questions into one variable
-    var questionVar = [questionEleven,questionTen,questionNine,questionEight,questionSeven,
-    questionSix,questionFive,questionFour,questionThree,questionTwo,questionOne];
+    startScreen.setAttribute('style','display:none');      
   
     // Random selects question    
     questionToUse = questionVar[Math.floor(Math.random() * questionVar.length)];
-
 
    //Randomise Choice array (Fisher-Yates Shuffle)
     choiceArray = questionToUse[0].choices
@@ -201,7 +199,7 @@ function game(){
     question.innerHTML = questionToUse[0].title;
     document.body.appendChild(question);
 
-    //Injects Choice One into HTML
+    //Injects Choice One into html
     var choiceOne = document.createElement("li");
     var btnOne = document.createElement('button')
     btnOne.innerHTML = "A: " + randomChoiceArray[0];
@@ -209,21 +207,21 @@ function game(){
     choiceOne.appendChild(btnOne);
 
 
-    //Injects Choice Two into HTML
+    //Injects Choice Two into html
     var choiceTwo = document.createElement('li');
     var btnTwo = document.createElement('button');
     btnTwo.innerHTML = "B: " + randomChoiceArray[1];
     question.appendChild(choiceTwo);
     choiceTwo.appendChild(btnTwo);
 
-    //Injects Choice Three into HTML
+    //Injects Choice Three into html
     var choiceThree = document.createElement("li");
     var btnThree = document.createElement('button');
     btnThree.innerHTML = "C: " + randomChoiceArray[2];
     question.appendChild(choiceThree);
     choiceThree.appendChild(btnThree);
 
-    //Injects Choice Four into HTML
+    //Injects Choice Four into html
     var choiceFour = document.createElement("li");
     var btnFour = document.createElement('button');
     btnFour.innerHTML ="D: " + randomChoiceArray[3];
@@ -231,11 +229,12 @@ function game(){
     choiceFour.appendChild(btnFour);
 
     //Styling of Quiz
-    question.setAttribute('style','border-style: dotted; border-color:#008CBA; text-align: left; font-weight:1000; font-size:20px; width:fit-content; color:black; content-align:left; width:30%; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%');
+    question.setAttribute('id', 'question')
+    question.setAttribute('style','border-style: dotted; border-color:#008CBA; border-radius:8px; text-align: left; font-weight:1000; font-size:20px; width:fit-content; color:black; content-align:left; width:30%; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%');
     choiceOne.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
     choiceTwo.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
     choiceThree.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
-    choiceFour.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px;');
+    choiceFour.setAttribute('style', 'text-align:left; list-style: none; width:fit-content; border:10px; padding-left:5px; margin-bottom: 5px;');
     btnOne.setAttribute("id", "btnOne");
     btnTwo.setAttribute( "id", "btnTwo");
     btnThree.setAttribute( "id", "btnThree");
@@ -245,7 +244,7 @@ function game(){
     btnThree.setAttribute('style', 'background: #008CBA; color:white; border-radius: 8px;');
     btnFour.setAttribute('style', 'background-color: #008CBA; color:white; border-radius: 8px;');
 
-    //Listens and processes answers
+    //Listens to and processes answers
     var one = document.querySelector("#btnOne");
     var two = document.querySelector("#btnTwo");
     var three = document.querySelector("#btnThree");
@@ -253,36 +252,96 @@ function game(){
     
     one.addEventListener("click", function() {
         if (randomChoiceArray[0] == questionToUse[0].answer[0]) {correct();}
-        else {secondsLeft -1000;}
+        else {incorrect();}
     });
     two.addEventListener("click", function() {
         if (randomChoiceArray[1] == questionToUse[0].answer[0]) {correct();}
-        else {secondsLeft -1000;}
+        else {incorrect();}
     });
     three.addEventListener("click", function() {
         if (randomChoiceArray[2] == questionToUse[0].answer[0]) {correct();}
-        else {secondsLeft -1000;}
+        else {incorrect();}
     });
 
     four.addEventListener("click", function() {
         if (randomChoiceArray[3] == questionToUse[0].answer[0]) {correct();}
-        else {secondsLeft -1000;}
+        else {incorrect();}
     });
 
+    if (count <= 0) {endGame();}
+    else if (timer <= 0){endGame();}
+    
 };
 
-//Repeats game 5 times 
+//Repeats game  
 function correct(){
-    document.body.innerHTML = "";
-    var count = 5
-    count--;
-    if(count <= 5){game();}
-    else{endGame();}
+    window.question.remove()
+    {game();}
 };
+
+//Incorrect function
+function incorrect(){
+    if (count <= 0) {endGame();}
+    else if (timer <= 0){endGame();}
+    else {window.timer -= 10;
+    var incor = window.document.createElement("footer");
+    incor.innerHTML = "Incorrect!";
+    document.body.appendChild(incor);
+    incor.setAttribute('style',' font-size:25px; border:top; border-color:#5e5d59; color:#5e5d59; width:30%; position: absolute; top: 15%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%')
+    incor.setAttribute('id', 'incor')
+    setTimeout(function(){window.incor.remove()},1000);}
+}
+
+//Timer Function
+function gameTime() {
+    setInterval(function() {
+    if(timer > 0){
+    timer--;}
+    window.secondsLeft.innerHTML = "Time: " + timer
+    }, 1000);
+} 
 
 //Ends game and bring up Intials and high score
 function endGame(){
+    window.question.remove()
+    var highScore = document.createElement('h1')
+    var score = document.createElement('h2')
+    var initials = document.createElement('form')
+    var input = document.createElement("input");
+    var submit = document.createElement ('button')
+    highScore.innerHTML = "Well Done"
+    score.innerHTML = "Your Score is " + timer
+    initials.innerHTML = "Enter Initials:"
+    input.innerHTML = ''
+    submit.innerHTML = "submit"
+    document.body.appendChild(highScore);
+    document.body.appendChild(score);
+    document.body.appendChild(initials);
+    initials.appendChild(input)
+    initials.appendChild(submit)
+    highScore.setAttribute('style', 'width:30%; display:flex; flex-wrap:wrap; position: absolute; top: 30%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)')
+    score.setAttribute('style', 'width:30%; display:flex; flex-wrap:wrap; position: absolute; top: 40%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)')
+    initials.setAttribute('style', 'width:30%; display:flex; flex-wrap:wrap; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)')
+    initials.setAttribute('name','initials');
+    initials.setAttribute('type','text')
+    initials.setAttribute('id', 'initials')
+    submit.setAttribute('id','submit')
+    //submit.setAttribute('type',"submit");
+    //submit.setAttribute('value',"Submit");
+    submit.setAttribute('href','highscore.html');
+    submit.setAttribute('style','background-color: #008CBA; color:white; border-radius: 8px;')
+       
+        submit.addEventListener('click', function(){
+            event.preventDefault();
+            console.log('help me god')
+            var input = document.getElementById("initials");
+            console.log(input.value)
+            var score = window.timer
+            localStorage.setItem("Initials",JSON.stringify(input));
+            localStorage.setItem("Score", JSON.stringify(score));
+            
+    });
+};  
 
-}
-
-//Prints score to storage
+ 
+    
