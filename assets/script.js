@@ -112,7 +112,7 @@ var questionEleven = [{
 
 //Start Screen
 var viewHs = document.createElement ("a");
-var timer = 5;
+var timer = 75;
 var secondsLeft = document.createElement("h3")
 var startScreen = document.createElement("article");
 var head = document.createElement("h1");
